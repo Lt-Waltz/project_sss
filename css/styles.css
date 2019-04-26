@@ -35,3 +35,22 @@ body {
     box-shadow: 0 0 3px rgba( 255, 255, 255, 0.4);
     opacity: 0.5;
 }
+
+#searchButton {
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#searchField {
+    margin: 5px 5px 5px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+#searchField:hover {
+    border: 1px solid #c6d4df;
+    margin: 4px 4px 4px -1px;
+}
