@@ -5,7 +5,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     color: #c6d4df;
     font-size: 12px;
-    background: #1b2838;
+    background-size: 100% 500px;
+    background-color: #1b2838;
+    background-image: repeating-linear-gradient(#1b2838, #25364c, #1b2838);
 
 }
 
@@ -25,8 +27,11 @@ body {
 
 .searchContainer {
     max-width: 100%;
+    max-height: 48px;
     height: 48px;
     background-color: cornflowerblue;
     border-radius: 5px;
     margin-top: 5px;
+    box-shadow: 0 0 3px rgba( 255, 255, 255, 0.4);
+    opacity: 0.5;
 }
