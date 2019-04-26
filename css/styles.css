@@ -1,0 +1,22 @@
+body {
+    padding: 0;
+    margin: 0;
+    min-height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #c6d4df;
+    font-size: 12px;
+    background: #1b2838;
+
+}
+
+.mainBody {
+    margin: auto;
+    max-width: 960px;
+    min-height: 100%;
+}
+
+#banner {
+    max-width:100%;
+    height: auto;
+    object-fit: contain;
+}
