@@ -42,6 +42,7 @@ body {
     border-radius: 5px;
     font-weight: bold;
     text-align: center;
+    color: cornflowerblue;
 }
 
 #searchField {
@@ -53,4 +54,8 @@ body {
 #searchField:hover {
     border: 1px solid #c6d4df;
     margin: 4px 4px 4px -1px;
+}
+
+.gamesContainer {
+
 }
