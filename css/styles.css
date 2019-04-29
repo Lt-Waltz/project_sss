@@ -38,22 +38,40 @@ body {
 
 #searchButton {
     margin: 5px;
+    padding: 0px;
     border: none;
     border-radius: 5px;
     font-weight: bold;
+    font-size: 2.3em;
     text-align: center;
     color: cornflowerblue;
+    height: 35px;
+    width: 35px;
+}
+#searchButton:hover {
+    cursor: pointer;
 }
 
 #searchField {
-    margin: 5px 5px 5px 0;
+    margin: 5px 5px 5px 10px;
     border-radius: 5px;
     border: none;
+    height: 35px;
+    width: 740px;
+    max-width: 740px;
 }
 
 #searchField:hover {
     border: 1px solid #c6d4df;
-    margin: 4px 4px 4px -1px;
+    margin: 4px 4px 4px 9px;
+    cursor: pointer;
+}
+
+.dropDownMenu {
+    margin: 5px 5px 5px 5px;
+    float: right;
+    height: 35px;
+    width: 140px;
 }
 
 .gamesContainer {
