@@ -3,8 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Steam Sale Searcher</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+<div class="mainContainer">
+    <img id="banner" src="images/Banner.png" alt="Banner">
 
+    <div class="searchContainer">
+        <button id="searchButton">&#8981</button>
+        <input id="searchField" type="text" placeholder="Search games...">
+        <select class="dropDownMenu">
+            <option selected disabled hidden>Search by:</option>
+            <option value="name">Name</option>
+            <option value="genre">Genre</option>
+        </select>
+    </div>
+
+    <table class="gamesContainer">
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Discount Percentage</th>
+            <th>Discount Amount</th>
+        </tr>
+        <!-- Javascript tekee tähän listan peleistä-->
+    </table>
+</div>
 </body>
 </html>
