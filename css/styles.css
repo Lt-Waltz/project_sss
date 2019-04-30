@@ -67,11 +67,12 @@ body {
     cursor: pointer;
 }
 
-.dropDownMenu {
+#dropDownMenu {
     margin: 5px 5px 5px 5px;
     float: right;
     height: 35px;
     width: 140px;
+    cursor: pointer;
 }
 
 .gamesContainer {

@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <title>Steam Sale Searcher</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <script type="text/javascript" src="js/getGames.js"></script>
 </head>
 <body>
 <div class="mainContainer">
     <img id="banner" src="images/Banner.png" alt="Banner">
 
     <div class="searchContainer">
-        <button id="searchButton">&#8981</button>
-        <input id="searchField" type="text" placeholder="Search games...">
-        <select class="dropDownMenu">
-            <option selected disabled hidden>Search by:</option>
-            <option value="name">Name</option>
-            <option value="genre">Genre</option>
-        </select>
+        <form action="javascript:searchGames()">
+            <input id="searchButton" type="submit" value="&#8981">
+            <input id="searchField" type="text" placeholder="Search games...">
+            <select id="dropDownMenu">
+                <option selected disabled hidden value="search">Search by:</option>
+                <option value="name">Name</option>
+                <option value="genre">Genre</option>
+            </select>
+        </form>
     </div>
 
     <table class="gamesContainer">
