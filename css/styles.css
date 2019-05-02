@@ -54,6 +54,7 @@ body {
 
 #searchField {
     margin: 6px 6px 6px 6px;
+    padding: 0px;
     border-radius: 5px;
     border: none;
     height: 35px;
