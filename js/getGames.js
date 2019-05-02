@@ -14,26 +14,17 @@ window.onload = function () {
         }
     }
 
-    httpRequest.open("GET", "php/getAllGames.php", false);
+    httpRequest.open("GET", "php/getAllGames.php");
     httpRequest.send();
     return false;
 }
 
 function searchGames() {
-    var select = document.getElementById("dropDownMenu");
-    var option = select.options[select.selectedIndex].value;
     var searchQ = document.getElementById("searchField").value;
-
-    if(option === "search") {
-        alert('Please select what type of search you are making with the "Search by" menu.');
-    } else if(option === "name") {
-        ajaxRequest(option, searchQ);
-    } else {
-        ajaxRequest(option, searchQ);
-    }
+    ajaxRequest(searchQ);
 }
 
-function ajaxRequest(option, searchQ) {
+function ajaxRequest(searchQ) {
     var httpRequest;
     if (window.XMLHttpRequest) {
         httpRequest = new XMLHttpRequest();
@@ -51,10 +42,10 @@ function ajaxRequest(option, searchQ) {
 
     httpRequest.onreadystatechange = callback;
 
-    httpRequest.open("GET", "php/gameSearch?option=" + option + "&q=" + searchQ);
+    httpRequest.open("GET", "php/gameSearch?q=" + searchQ);
     httpRequest.send();
 }
 
 function callback() {
-
+    alert("haettu!");
 }
