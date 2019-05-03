@@ -20,11 +20,18 @@ window.onload = function () {
 }
 
 function searchGames() {
+    var select = document.getElementById("dropDownMenu");
+    var option = select.options[select.selectedIndex].value;
     var searchQ = document.getElementById("searchField").value;
-    ajaxRequest(searchQ);
+    // TODO Pitää muuttaa valuuttahakua varten
+    if(option === "search") {
+       // alert('Please select what type of search you are making with the "Search by" menu.');
+    } else {
+        ajaxRequest(option, searchQ);
+    }
 }
 
-function ajaxRequest(searchQ) {
+function ajaxRequest(option, searchQ) {
     var httpRequest;
     if (window.XMLHttpRequest) {
         httpRequest = new XMLHttpRequest();
@@ -40,12 +47,13 @@ function ajaxRequest(searchQ) {
         }
     }
 
-    httpRequest.onreadystatechange = callback;
+    httpRequest.onreadystatechange = addGameToList;
 
-    httpRequest.open("GET", "php/gameSearch?q=" + searchQ);
+    httpRequest.open("GET", "php/gameSearch?q=" + searchQ + "&option=" + option);
     httpRequest.send();
 }
 
-function callback() {
-    alert("haettu!");
+function addGameToList() {
+    console.log("haettu!");
+    // TODO Tää funktio luo sen pelin siihen listaan.
 }
