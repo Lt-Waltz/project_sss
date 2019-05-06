@@ -19,7 +19,15 @@ for ($i = 0; $i < count($all_appids); $i++) {
         $steam_url .= $all_appids[$i] . '&l=en&cc=fi';
     } else if (strcmp($currency, "USD") == 0) {
         $steam_url .= $all_appids[$i] . '&l=en&cc=us';
-    } // TODO lisää valuuttoja
+    } else if (strcmp($currency, "GBP") == 0) {
+        $steam_url .= $all_appids[$i] . '&l=en&cc=gb';
+    } else if (strcmp($currency, "RUB") == 0) {
+        $steam_url .= $all_appids[$i] . '&l=en&cc=ru';
+    } else if (strcmp($currency, "YEN") == 0) {
+        $steam_url .= $all_appids[$i] . '&l=en&cc=jp';
+    } else {
+        $steam_url .= $all_appids[$i] . '&l=en&cc=au';
+    }
 
     $gameDetails_json = file_get_contents($steam_url);
     $gameDetails_array = json_decode($gameDetails_json, true);

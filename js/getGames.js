@@ -23,12 +23,8 @@ function searchGames() {
     var select = document.getElementById("dropDownMenu");
     var option = select.options[select.selectedIndex].value;
     var searchQ = document.getElementById("searchField").value;
-    // TODO Pitää muuttaa valuuttahakua varten
-    if(option === "search") {
-       // alert('Please select what type of search you are making with the "Search by" menu.');
-    } else {
-        ajaxRequest(option, searchQ);
-    }
+
+    ajaxRequest(option, searchQ);
 }
 
 function ajaxRequest(option, searchQ) {
