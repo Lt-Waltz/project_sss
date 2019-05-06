@@ -17,7 +17,7 @@ window.onload = function () {
     httpRequest.open("GET", "php/getAllGames.php");
     httpRequest.send();
     return false;
-}
+};
 
 function searchGames() {
     var select = document.getElementById("dropDownMenu");
@@ -27,8 +27,10 @@ function searchGames() {
     ajaxRequest(option, searchQ);
 }
 
+var httpRequest;
+
 function ajaxRequest(option, searchQ) {
-    var httpRequest;
+
     if (window.XMLHttpRequest) {
         httpRequest = new XMLHttpRequest();
     } else if (window.ActiveXObject) {
@@ -45,11 +47,14 @@ function ajaxRequest(option, searchQ) {
 
     httpRequest.onreadystatechange = addGameToList;
 
-    httpRequest.open("GET", "php/gameSearch?q=" + searchQ + "&option=" + option);
+    httpRequest.open("GET", "php/gameSearch.php?q=" + encodeURIComponent(searchQ) + "&option=" + option, false);
     httpRequest.send();
 }
 
 function addGameToList() {
-    console.log("haettu!");
+    if (httpRequest.readyState === 4) {
+        console.log("Haku");
+        console.log(httpRequest.responseText);
+    }
     // TODO Tää funktio luo sen pelin siihen listaan.
 }

@@ -8,12 +8,12 @@ $games_array = json_decode($games_json, true);
 $all_appids = array();
 
 for ($i = 0; $i < count($games_array['applist']['apps']); $i++) {
-    if (strpos($games_array['applist']['apps'][$i]['name'], $q) !== false) {
+    if (stripos($games_array['applist']['apps'][$i]['name'], $q) !== false) {
         array_push($all_appids, $games_array['applist']['apps'][$i]['appid']);
     }
 }
-
-for ($i = 0; $i < count($all_appids); $i++) {
+//echo json_encode($all_appids, true) . " " . count($all_appids);
+for ($i = 0; $i < 1; $i++) {
     $steam_url = 'https://store.steampowered.com/api/appdetails?appids=';
     if (strcmp($currency, "EUR") == 0) {
         $steam_url .= $all_appids[$i] . '&l=en&cc=fi';
