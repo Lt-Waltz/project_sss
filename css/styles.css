@@ -121,12 +121,120 @@ body {
         border-radius: 5px;
         border: none;
         height: 35px;
-        width: 100%;
-        max-width: 740px;
+        width: 740px;
         float: left;
         position: absolute;
         left: 200px;
     }
 
 }
+@media only screen and ( max-width: 900px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 700px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
 
+@media only screen and ( max-width: 850px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 600px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
+
+@media only screen and ( max-width: 800px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 550px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
+
+
+@media only screen and ( max-width: 740px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 500px;
+        max-width: 500px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
+@media only screen and ( max-width: 700px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 450px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
+@media only screen and ( max-width: 650px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 400px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
+@media only screen and ( max-width: 600px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 350px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
+
+@media only screen and ( max-width: 550px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 300px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
