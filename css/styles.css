@@ -78,6 +78,9 @@ body {
     cursor: pointer;
     border: none;
 }
+#dropDownMenu option {
+    background: rgba(100, 149, 237, 0.9);
+}
 
 #tableContainer {
 }
