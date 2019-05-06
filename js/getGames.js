@@ -52,9 +52,11 @@ function ajaxRequest(option, searchQ) {
 }
 
 function addGameToList() {
-    if (httpRequest.readyState === 4) {
+    if (httpRequest.readyState === 4 && httpRequest.status === 200) {
         console.log("Haku");
         console.log(httpRequest.responseText);
+    } else if (httpRequest.readyState === 4 && httpRequest.status === 502) {
+        console.log("hehe, haista vittu");
     }
     // TODO Tää funktio luo sen pelin siihen listaan.
 }
