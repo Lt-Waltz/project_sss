@@ -15,7 +15,6 @@ body {
     margin: auto;
     max-width: 960px;
     min-height: 100%;
-    min-width: 960px;
 }
 
 #banner {
@@ -121,28 +120,28 @@ body {
         border-radius: 5px;
         border: none;
         height: 35px;
-        width: 740px;
+        width: 700px;
         float: left;
         position: absolute;
         left: 200px;
     }
 
 }
-@media only screen and ( max-width: 900px ) {
+@media only screen and ( max-width: 930px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
         padding: 0px;
         border-radius: 5px;
         border: none;
         height: 35px;
-        width: 700px;
+        width: 660px;
         float: left;
         position: absolute;
         left: 200px;
     }
 }
 
-@media only screen and ( max-width: 850px ) {
+@media only screen and ( max-width: 900px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
         padding: 0px;
@@ -156,7 +155,7 @@ body {
     }
 }
 
-@media only screen and ( max-width: 800px ) {
+@media only screen and ( max-width: 850px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
         padding: 0px;
@@ -164,6 +163,20 @@ body {
         border: none;
         height: 35px;
         width: 550px;
+        float: left;
+        position: absolute;
+        left: 200px;
+    }
+}
+
+@media only screen and ( max-width: 800px ) {
+    #searchField {
+        margin: 6px 6px 6px 6px;
+        padding: 0px;
+        border-radius: 5px;
+        border: none;
+        height: 35px;
+        width: 525px;
         float: left;
         position: absolute;
         left: 200px;
