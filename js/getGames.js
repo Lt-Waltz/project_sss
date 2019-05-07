@@ -54,9 +54,11 @@ function ajaxRequest(option, searchQ) {
 function addGameToList() {
     if (httpRequest.readyState === 4 && httpRequest.status === 200) {
         console.log("Haku");
+        /*var game_info = JSON.parse(httpRequest.responseText);
+        console.log(game_info);*/
         console.log(httpRequest.responseText);
     } else if (httpRequest.readyState === 4 && httpRequest.status === 502) {
-        console.log("hehe, haista vittu");
+        console.log("liian monta peliä phpstormille...");
     }
     // TODO Tää funktio luo sen pelin siihen listaan.
 }
