@@ -1,5 +1,6 @@
+var httpRequest;
+
 window.onload = function () {
-    var httpRequest;
     if (window.XMLHttpRequest) {
         httpRequest = new XMLHttpRequest();
     } else if (window.ActiveXObject) {
@@ -20,16 +21,49 @@ window.onload = function () {
 };
 
 function searchGames() {
-    var select = document.getElementById("dropDownMenu");
-    var option = select.options[select.selectedIndex].value;
     var searchQ = document.getElementById("searchField").value;
 
-    ajaxRequest(option, searchQ);
+    appIds(searchQ);
+   //ajaxRequest(option, searchQ);
 }
 
-var httpRequest;
+function appIds(searchQ) {
 
-function ajaxRequest(option, searchQ) {
+    if (window.XMLHttpRequest) {
+        httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+        try {
+            httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
+        }
+        catch (e) {
+            try {
+                httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            catch (e) {}
+        }
+    }
+
+    httpRequest.onreadystatechange = runAjax;
+    httpRequest.open("GET", "php/getAppIds.php?q=" + encodeURIComponent(searchQ));
+    httpRequest.send();
+}
+
+function runAjax() {
+    if (httpRequest.readyState === 4 && httpRequest.status === 200) {
+        var appIds = JSON.parse(httpRequest.responseText);
+        var select = document.getElementById("dropDownMenu");
+        var option = select.options[select.selectedIndex].value;
+        //console.log(appIds);
+        for (var i=0; i<appIds.length; i++) {
+            ajaxRequest(option, appIds[i]);
+        }
+    }
+    if (httpRequest.readyState === 4 && httpRequest.status === 502) {
+        alert("Search failed! Try again.\n(Blame Phpstorm for this...)");
+    }
+}
+
+function ajaxRequest(option, appId) {
 
     if (window.XMLHttpRequest) {
         httpRequest = new XMLHttpRequest();
@@ -47,7 +81,7 @@ function ajaxRequest(option, searchQ) {
 
     httpRequest.onreadystatechange = addGameToList;
 
-    httpRequest.open("GET", "php/gameSearch.php?q=" + encodeURIComponent(searchQ) + "&option=" + option, false);
+    httpRequest.open("GET", "php/gameSearch.php?appId=" + appId + "&option=" + option);
     httpRequest.send();
 }
 
@@ -58,7 +92,7 @@ function addGameToList() {
         console.log(game_info);*/
         console.log(httpRequest.responseText);
     } else if (httpRequest.readyState === 4 && httpRequest.status === 502) {
-        console.log("liian monta peliä phpstormille...");
+        console.log("phpstorm vittuilee. haku ei onnistunut");
     }
     // TODO Tää funktio luo sen pelin siihen listaan.
 }
