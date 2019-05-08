@@ -1,7 +1,7 @@
 var httpRequest;
 var idAmount = 0;
 var currentId = 0;
-var option;
+var currency;
 var theAppIds;
 
 window.onload = function () {
@@ -28,7 +28,7 @@ function searchGames() {
     var searchQ = document.getElementById("searchField").value;
 
     appIds(searchQ);
-   //ajaxRequest(option, searchQ);
+    //ajaxRequest(option, searchQ);
 }
 
 function appIds(searchQ) {
@@ -57,18 +57,20 @@ function runAjax() {
         theAppIds = JSON.parse(httpRequest.responseText);
         idAmount = theAppIds.length;
         var select = document.getElementById("dropDownMenu");
-        option = select.options[select.selectedIndex].value;
-        console.log(appIds);
-        ajaxRequest(option, theAppIds[currentId]);
+        currency = select.options[select.selectedIndex].value;
+        //console.log(theAppIds);
+        ajaxRequest(currency, theAppIds[currentId], true);
     }
     if (httpRequest.readyState === 4 && httpRequest.status === 502) {
         alert("Search failed! Try again.\n(Blame Phpstorm for this...)");
     }
 }
 
-function ajaxRequest(option, appId) {
-    currentId++;
-    idAmount--;
+function ajaxRequest(option, appId, increment) {
+    if (increment) {
+        currentId++;
+        idAmount--;
+    }
 
     if (window.XMLHttpRequest) {
         httpRequest = new XMLHttpRequest();
@@ -87,6 +89,11 @@ function ajaxRequest(option, appId) {
     httpRequest.onreadystatechange = addGameToList;
 
     httpRequest.open("GET", "php/gameSearch.php?appId=" + appId + "&option=" + option);
+    httpRequest.timeout = 2500;
+    httpRequest.ontimeout = function () {
+        console.log("Timed out! Haetaan uudestaan");
+        ajaxRequest(currency, theAppIds[currentId-1], false);
+    };
     httpRequest.send();
 }
 
@@ -97,10 +104,13 @@ function addGameToList() {
         console.log(game_info);*/
         console.log(httpRequest.responseText);
         if (idAmount > 0) {
-            ajaxRequest(option, theAppIds[currentId]);
+            ajaxRequest(currency, theAppIds[currentId], true);
         }
     } else if (httpRequest.readyState === 4 && httpRequest.status === 502) {
-        console.log("phpstorm vittuilee. haku ei onnistunut");
+        console.log("phpstorm vittuilee. haku ei onnistunut. Haetaan uudestaan");
+        if (idAmount > 0) {
+            ajaxRequest(currency, theAppIds[currentId-1], false);
+        }
     }
     // TODO Tää funktio luo sen pelin siihen listaan.
 }
