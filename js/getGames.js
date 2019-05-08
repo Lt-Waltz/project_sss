@@ -1,4 +1,8 @@
 var httpRequest;
+var idAmount = 0;
+var currentId = 0;
+var option;
+var theAppIds;
 
 window.onload = function () {
     if (window.XMLHttpRequest) {
@@ -50,13 +54,12 @@ function appIds(searchQ) {
 
 function runAjax() {
     if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-        var appIds = JSON.parse(httpRequest.responseText);
+        theAppIds = JSON.parse(httpRequest.responseText);
+        idAmount = theAppIds.length;
         var select = document.getElementById("dropDownMenu");
-        var option = select.options[select.selectedIndex].value;
-        //console.log(appIds);
-        for (var i=0; i<appIds.length; i++) {
-            ajaxRequest(option, appIds[i]);
-        }
+        option = select.options[select.selectedIndex].value;
+        console.log(appIds);
+        ajaxRequest(option, theAppIds[currentId]);
     }
     if (httpRequest.readyState === 4 && httpRequest.status === 502) {
         alert("Search failed! Try again.\n(Blame Phpstorm for this...)");
@@ -64,6 +67,8 @@ function runAjax() {
 }
 
 function ajaxRequest(option, appId) {
+    currentId++;
+    idAmount--;
 
     if (window.XMLHttpRequest) {
         httpRequest = new XMLHttpRequest();
@@ -91,6 +96,9 @@ function addGameToList() {
         /*var game_info = JSON.parse(httpRequest.responseText);
         console.log(game_info);*/
         console.log(httpRequest.responseText);
+        if (idAmount > 0) {
+            ajaxRequest(option, theAppIds[currentId]);
+        }
     } else if (httpRequest.readyState === 4 && httpRequest.status === 502) {
         console.log("phpstorm vittuilee. haku ei onnistunut");
     }
