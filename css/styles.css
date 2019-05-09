@@ -93,7 +93,6 @@ body {
 }
 .searchResultContainer {
     background-color: rgba(22, 33, 46, 1.0);
-    column-span: all;
 }
 .searchResultContainer img {
     height: 100px;
