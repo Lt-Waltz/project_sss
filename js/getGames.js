@@ -59,7 +59,11 @@ function runAjax() {
         var select = document.getElementById("dropDownMenu");
         currency = select.options[select.selectedIndex].value;
         //console.log(theAppIds);
-        ajaxRequest(currency, theAppIds[currentId], true);
+        if (theAppIds[0] != 0) {
+            ajaxRequest(currency, theAppIds[currentId], true);
+        } else {
+            alert("No results");
+        }
     }
     if (httpRequest.readyState === 4 && httpRequest.status === 502) {
         alert("Search failed! Try again.\n(Blame Phpstorm for this...)");
@@ -103,20 +107,132 @@ function addGameToList() {
         var game_info = JSON.parse(httpRequest.responseText);
         console.log(game_info); // Tässä tekee sen pelin login sijasta.
 
-        var tr = document.createElement("tr");
-        var td = document.createElement("td"); // colspan="4"
-        var header = document.createElement("img"); // height="100" width="auto" style="float: left" src= game_info...
-        var div1 = document.createElement("div"); // style="overflow: hidden; margin-left: ~10px; width: 465px; (margin-right: 0px; padding-right: 0px;) float: left"
-        var name = document.createElement("h2");
-        name.innerText = ; // Pelin nimi. game_info...
-        var genres = document.createElement("p");
-        genres.innerText = ; //Pelin genret.
-        var div2 = document.createElement("div"); // style="float: right; width: 265px; margin-top: ~30px"
-        var discount = document.createElement("p");
-        discount.innerText = ; // Alennusprosentti. (jos on)
-        var price = document.createElement("");
-        price.innerText = ; // Hinta (hinta alennuksella jos on)
-
+        if (game_info[0] != "not a game" || game_info[0] != "no price") {
+            var tr = document.createElement("tr");
+            var td = document.createElement("td"); // colspan="4"
+            td.setAttribute("colspan", "4");
+            if (game_info[0] == "priced") {
+                var header = document.createElement("img"); // src= game_info...
+                header.src = game_info[2];
+                header.alt = "header image";
+                var div1 = document.createElement("div");
+                var name = document.createElement("h2");
+                name.innerText = game_info[1]; // Pelin nimi.
+                var genres = document.createElement("p");
+                var genresText = "";
+                for (var i=0; i<game_info[4].length; i++) {
+                    if (i==game_info[4].length-1) {
+                        genresText += game_info[4][i]["description"];
+                    } else {
+                        genresText += game_info[4][i]["description"] + ", ";
+                    }
+                }
+                genres.innerText = genresText; //Pelin genret.
+                div1.appendChild(name);
+                div1.appendChild(genres);
+                var div2 = document.createElement("div");
+                if (game_info[3]["discount_percent"] != 0) {
+                    var discount = document.createElement("p");
+                    discount.innerText = "-" + game_info[3]["discount_percent"] + "%"; // Alennusprosentti. (jos on)
+                    var price = document.createElement("p");
+                    price.innerHTML = "<s>" + game_info[3]["initial_formatted"] + "</s></br>" + game_info[3]["final_formatted"]; // Hinta (hinta alennuksella jos on)
+                    div2.appendChild(discount);
+                } else {
+                    var price = document.createElement("p");
+                    price.innerText = game_info[3]["final_formatted"];
+                }
+                div2.appendChild(price);
+            } else if (game_info[0] == "free") {
+                var header = document.createElement("img"); // src= game_info...
+                header.src = game_info[2];
+                header.alt = "header image";
+                var div1 = document.createElement("div");
+                var name = document.createElement("h2");
+                name.innerText = game_info[1]; // Pelin nimi.
+                var genres = document.createElement("p");
+                var genresText = "";
+                for (var i=0; i<game_info[3].length; i++) {
+                    if (i==game_info[3].length-1) {
+                        genresText += game_info[3][i]["description"];
+                    } else {
+                        genresText += game_info[3][i]["description"] + ", ";
+                    }
+                }
+                genres.innerText = genresText; //Pelin genret.
+                div1.appendChild(name);
+                div1.appendChild(genres);
+                var div2 = document.createElement("div");
+                var price = document.createElement("p");
+                price.innerText = "Free"; // Hinta (hinta alennuksella jos on)
+                div2.appendChild(price);
+            } else if (game_info[0] == "free genreless") {
+                var header = document.createElement("img"); // src= game_info...
+                header.src = game_info[2];
+                header.alt = "header image";
+                var div1 = document.createElement("div");
+                var name = document.createElement("h2");
+                name.innerText = game_info[1]; // Pelin nimi.
+                div1.appendChild(name);
+                var div2 = document.createElement("div");
+                var price = document.createElement("p");
+                price.innerText = "Free"; // Hinta (hinta alennuksella jos on)
+                div2.appendChild(price);
+            } else if (game_info[0] == "coming priced") {
+                var header = document.createElement("img"); // src= game_info...
+                header.src = game_info[2];
+                header.alt = "header image";
+                var div1 = document.createElement("div");
+                var name = document.createElement("h2");
+                name.innerText = game_info[1]; // Pelin nimi.
+                var genres = document.createElement("p");
+                var genresText = "";
+                for (var i=0; i<game_info[4].length; i++) {
+                    if (i==game_info[4].length-1) {
+                        genresText += game_info[4][i]["description"];
+                    } else {
+                        genresText += game_info[4][i]["description"] + ", ";
+                    }
+                }
+                genres.innerText = genresText; //Pelin genret.
+                div1.appendChild(name);
+                div1.appendChild(genres);
+                var div2 = document.createElement("div");
+                if (game_info[3]["discount_percent"] != 0) {
+                    var discount = document.createElement("p");
+                    discount.innerText = "-" + game_info[3]["discount_percent"] + "%"; // Alennusprosentti. (jos on)
+                    var price = document.createElement("p");
+                    price.innerHTML = "<s>" + game_info[3]["initial_formatted"] + "</s></br>" + game_info[3]["final_formatted"]; // Hinta (hinta alennuksella jos on)
+                    div2.appendChild(discount);
+                } else {
+                    var price = document.createElement("p");
+                    price.innerText = game_info[3]["final_formatted"];
+                }
+                div2.appendChild(price);
+            } else if (game_info[0] == "coming") {
+                var header = document.createElement("img"); // src= game_info...
+                header.src = game_info[2];
+                header.alt = "header image";
+                var div1 = document.createElement("div");
+                var name = document.createElement("h2");
+                name.innerText = game_info[1]; // Pelin nimi.
+                var genres = document.createElement("p");
+                var genresText = "";
+                for (var i=0; i<game_info[3].length; i++) {
+                    if (i==game_info[3].length-1) {
+                        genresText += game_info[3][i]["description"];
+                    } else {
+                        genresText += game_info[3][i]["description"] + ", ";
+                    }
+                }
+                genres.innerText = genresText; //Pelin genret.
+                div1.appendChild(name);
+                div1.appendChild(genres);
+                var div2 = document.createElement("div");
+                var price = document.createElement("p");
+                price.innerText = "Coming Soon"; // Hinta (hinta alennuksella jos on)
+                div2.appendChild(price);
+            }
+        } // Not a game tai hinnaton if-lauseen loppu
         if (idAmount > 0) {
             ajaxRequest(currency, theAppIds[currentId], true);
         } else {

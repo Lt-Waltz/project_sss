@@ -12,4 +12,8 @@ for ($i = 0; $i < count($games_array['applist']['apps']); $i++) {
     }
 }
 
+if (empty($all_appids)) {
+    array_push($all_appids, "0");
+}
+
 echo json_encode($all_appids);
