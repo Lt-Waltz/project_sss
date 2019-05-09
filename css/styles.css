@@ -10,6 +10,8 @@ body {
     background-image: repeating-linear-gradient(#1b2838, #25364c, #1b2838);
 
 }
+.navContainer {
+}
 
 .mainContainer {
     margin: auto;
@@ -19,6 +21,7 @@ body {
 
 #banner {
     max-width:100%;
+    margin-top: 56px;
     height: auto;
     object-fit: contain;
     border-bottom-left-radius: 5px;
@@ -38,7 +41,7 @@ body {
 
 #searchButton {
     margin: 6px 6px 6px 6px;
-    padding: 0px;
+    padding: 0;
     border: none;
     border-radius: 5px;
     font-weight: bold;
@@ -55,7 +58,7 @@ body {
 
 #searchField {
     margin: 6px 6px 6px 6px;
-    padding: 0px;
+    padding: 0;
     border-radius: 5px;
     border: none;
     height: 35px;
@@ -83,6 +86,10 @@ body {
 }
 
 #tableContainer {
+    color: white;
+    font-size: 12px;
+    text-align: center;
+    opacity: 0.7;
 }
 #tableContainer, .gamesContainer, table, tbody, tr  {
     width: 100%;
@@ -103,8 +110,8 @@ body {
     overflow: hidden;
     margin-left: 10px;
     width: 465px;
-    margin-right: 0px;
-    padding-right: 0px;
+    margin-right: 0;
+    padding-right: 0;
     float: left;
 }
 .nameContainer h2 {
@@ -147,7 +154,7 @@ body {
     }
     #searchButton {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border: none;
         border-radius: 5px;
         font-weight: bold;
@@ -171,7 +178,7 @@ body {
     }
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -185,7 +192,7 @@ body {
 @media only screen and ( max-width: 930px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -199,7 +206,7 @@ body {
 @media only screen and ( max-width: 900px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -213,7 +220,7 @@ body {
 @media only screen and ( max-width: 850px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -227,7 +234,7 @@ body {
 @media only screen and ( max-width: 800px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -242,7 +249,7 @@ body {
 @media only screen and ( max-width: 740px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -256,7 +263,7 @@ body {
 @media only screen and ( max-width: 700px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -269,7 +276,7 @@ body {
 @media only screen and ( max-width: 650px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -282,7 +289,7 @@ body {
 @media only screen and ( max-width: 600px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
@@ -296,7 +303,7 @@ body {
 @media only screen and ( max-width: 550px ) {
     #searchField {
         margin: 6px 6px 6px 6px;
-        padding: 0px;
+        padding: 0;
         border-radius: 5px;
         border: none;
         height: 35px;
