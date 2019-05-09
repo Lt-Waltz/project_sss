@@ -13,6 +13,8 @@ body {
 .navContainer {
     color: white;
 }
+.starter-template { padding: 4rem 1.5rem; }
+#logout{ display:none; }
 
 .mainContainer {
     margin: auto;
@@ -22,7 +24,6 @@ body {
 
 #banner {
     max-width:100%;
-    margin-top: 56px;
     height: auto;
     object-fit: contain;
     border-bottom-left-radius: 5px;
