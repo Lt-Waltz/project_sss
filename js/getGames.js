@@ -89,28 +89,41 @@ function ajaxRequest(option, appId, increment) {
     httpRequest.onreadystatechange = addGameToList;
 
     httpRequest.open("GET", "php/gameSearch.php?appId=" + appId + "&option=" + option);
-    httpRequest.timeout = 2500;
+    httpRequest.timeout = 1500;
     httpRequest.ontimeout = function () {
-        console.log("Timed out! Haetaan uudestaan");
+        console.log("Timed out! Haetaan uudestaan.");
         ajaxRequest(currency, theAppIds[currentId-1], false);
     };
     httpRequest.send();
 }
 
 function addGameToList() {
+    // TODO Tää funktio luo sen pelin siihen listaan.
     if (httpRequest.readyState === 4 && httpRequest.status === 200) {
-        console.log("Haku");
-        /*var game_info = JSON.parse(httpRequest.responseText);
-        console.log(game_info);*/
-        console.log(httpRequest.responseText);
+        var game_info = JSON.parse(httpRequest.responseText);
+        console.log(game_info); // Tässä tekee sen pelin login sijasta.
+
+        var tr = document.createElement("tr");
+        var td = document.createElement("td"); // colspan="4"
+        var header = document.createElement("img"); // height="100" width="auto" style="float: left" src= game_info...
+        var div1 = document.createElement("div"); // style="overflow: hidden; margin-left: ~10px; width: 465px; (margin-right: 0px; padding-right: 0px;) float: left"
+        var name = document.createElement("h2");
+        name.innerText = ; // Pelin nimi. game_info...
+        var genres = document.createElement("p");
+        genres.innerText = ; //Pelin genret.
+        var div2 = document.createElement("div"); // style="float: right; width: 265px; margin-top: ~30px"
+        var discount = document.createElement("p");
+        discount.innerText = ; // Alennusprosentti. (jos on)
+        var price = document.createElement("");
+        price.innerText = ; // Hinta (hinta alennuksella jos on)
+
         if (idAmount > 0) {
             ajaxRequest(currency, theAppIds[currentId], true);
+        } else {
+            currentId = 0;
         }
     } else if (httpRequest.readyState === 4 && httpRequest.status === 502) {
-        console.log("phpstorm vittuilee. haku ei onnistunut. Haetaan uudestaan");
-        if (idAmount > 0) {
-            ajaxRequest(currency, theAppIds[currentId-1], false);
-        }
+        console.log("Phpstorm vittuilee. Haku ei onnistunut. Haetaan uudestaan.");
+        ajaxRequest(currency, theAppIds[currentId-1], false);
     }
-    // TODO Tää funktio luo sen pelin siihen listaan.
 }
