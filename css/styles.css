@@ -21,6 +21,11 @@ body {
     max-width: 960px;
     min-height: 100%;
 }
+#favheader {
+    font-size: 100px;
+    color: white;
+    text-align: center;
+}
 
 #banner {
     max-width:100%;
