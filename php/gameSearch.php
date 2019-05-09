@@ -19,50 +19,63 @@ if (strcmp($currency, "EUR") == 0) {
 }
 
 $gameDetails_json = file_get_contents($steam_url);
-$gameDetails_array = json_decode($gameDetails_json, true);
-// TODO lajittele pelit joita ei enää myydä. Ja pelit joilla ei ole genreä.
-if ($gameDetails_array[$appId]["success"] === true) {
-    if ($gameDetails_array[$appId]["data"]["type"] === "dlc" || $gameDetails_array[$appId]["data"]["type"] === "game" || $gameDetails_array[$appId]["data"]["type"] === "demo") {
-        if ($gameDetails_array[$appId]["data"]["release_date"]["coming_soon"] === false) {
-            if ($gameDetails_array[$appId]["data"]["is_free"] === false) {
-                // Hakee maksullisen pelin
-                if (isset($gameDetails_array[$appId]["data"]["price_overview"])) {
-                    $game_info = array("priced", $gameDetails_array[$appId]["data"]["name"],
-                        $gameDetails_array[$appId]["data"]["header_image"],
-                        $gameDetails_array[$appId]["data"]["price_overview"],
-                        $gameDetails_array[$appId]["data"]["genres"]);
-                    echo json_encode($game_info, JSON_UNESCAPED_UNICODE); // Lähettää pelin tiedot json muodossa.
+if ($gameDetails_json != null) {
+    $gameDetails_array = json_decode($gameDetails_json, true);
+    if ($gameDetails_array[$appId]["success"] === true) {
+        if ($gameDetails_array[$appId]["data"]["type"] === "dlc" || $gameDetails_array[$appId]["data"]["type"] === "game" || $gameDetails_array[$appId]["data"]["type"] === "demo") {
+            if ($gameDetails_array[$appId]["data"]["release_date"]["coming_soon"] === false) {
+                if ($gameDetails_array[$appId]["data"]["is_free"] === false) {
+                    // Hakee maksullisen pelin
+                    if (isset($gameDetails_array[$appId]["data"]["price_overview"])) {
+                        if (isset($gameDetails_array[$appId]["data"]["genres"])) {
+                            $game_info = array("priced", $gameDetails_array[$appId]["data"]["name"],
+                                $gameDetails_array[$appId]["data"]["header_image"],
+                                $gameDetails_array[$appId]["data"]["price_overview"],
+                                $gameDetails_array[$appId]["data"]["genres"],
+                                $appId);
+                            echo json_encode($game_info, JSON_UNESCAPED_UNICODE); // Lähettää pelin tiedot json muodossa.
+                        } else {
+                            $game_info = array("priced genreless", $gameDetails_array[$appId]["data"]["name"],
+                                $gameDetails_array[$appId]["data"]["header_image"],
+                                $gameDetails_array[$appId]["data"]["price_overview"],
+                                $appId);
+                            echo json_encode($game_info, JSON_UNESCAPED_UNICODE); // Lähettää pelin tiedot json muodossa.
+                        }
+                    } else {
+                        $game_info = array("no price", $gameDetails_array[$appId]["data"]["name"],
+                            $gameDetails_array[$appId]["data"]["header_image"]);
+                        echo json_encode($game_info, JSON_UNESCAPED_UNICODE);
+                    }
                 } else {
-                    $game_info = array("no price", $gameDetails_array[$appId]["data"]["name"],
-                        $gameDetails_array[$appId]["data"]["header_image"],
-                        $gameDetails_array[$appId]["data"]["genres"]);
-                    echo json_encode($game_info, JSON_UNESCAPED_UNICODE);
+                    // Hakee ilmaisen pelin
+                    if (isset($gameDetails_array[$appId]["data"]["genres"])) {
+                        $game_info = array("free", $gameDetails_array[$appId]["data"]["name"],
+                            $gameDetails_array[$appId]["data"]["header_image"],
+                            $gameDetails_array[$appId]["data"]["genres"],
+                            $appId);
+                        echo json_encode($game_info, JSON_UNESCAPED_UNICODE);
+                    } else {
+                        $game_info = array("free genreless", $gameDetails_array[$appId]["data"]["name"],
+                            $gameDetails_array[$appId]["data"]["header_image"],
+                            $appId);
+                        echo json_encode($game_info, JSON_UNESCAPED_UNICODE);
+                    }
                 }
             } else {
-                // Hakee ilmaisen pelin
-                if (isset($gameDetails_array[$appId]["data"]["genres"])) {
-                    $game_info = array("free", $gameDetails_array[$appId]["data"]["name"],
-                        $gameDetails_array[$appId]["data"]["header_image"],
-                        $gameDetails_array[$appId]["data"]["genres"]);
-                    echo json_encode($game_info, JSON_UNESCAPED_UNICODE);
+                // Hakee pelin joka on "coming soon"
+                $game_info = array($gameDetails_array[$appId]["data"]["name"],
+                    $gameDetails_array[$appId]["data"]["header_image"]);
+                if (!isset($gameDetails_array[$appId]["data"]["price_overview"])) {
+                    array_push($game_info, $gameDetails_array[$appId]["data"]["genres"], $appId);
+                    array_unshift($game_info, "coming");
                 } else {
-                    $game_info = array("free genreless", $gameDetails_array[$appId]["data"]["name"],
-                        $gameDetails_array[$appId]["data"]["header_image"]);
-                    echo json_encode($game_info, JSON_UNESCAPED_UNICODE);
+                    array_push($game_info, $gameDetails_array[$appId]["data"]["price_overview"], $gameDetails_array[$appId]["data"]["genres"], $appId);
+                    array_unshift($game_info, "coming priced");
                 }
+                echo json_encode($game_info, JSON_UNESCAPED_UNICODE);
             }
         } else {
-            // Hakee pelin joka on "coming soon"
-            $game_info = array($gameDetails_array[$appId]["data"]["name"],
-                $gameDetails_array[$appId]["data"]["header_image"]);
-            if (!isset($gameDetails_array[$appId]["data"]["price_overview"])) {
-                array_push($game_info, $gameDetails_array[$appId]["data"]["genres"]);
-                array_unshift($game_info, "coming");
-            } else {
-                array_push($game_info, $gameDetails_array[$appId]["data"]["price_overview"], $gameDetails_array[$appId]["data"]["genres"]);
-                array_unshift($game_info, "coming priced");
-            }
-            echo json_encode($game_info, JSON_UNESCAPED_UNICODE);
+            echo '["not a game"]';
         }
     } else {
         echo '["not a game"]';
@@ -70,4 +83,3 @@ if ($gameDetails_array[$appId]["success"] === true) {
 } else {
     echo '["not a game"]';
 }
-//}
