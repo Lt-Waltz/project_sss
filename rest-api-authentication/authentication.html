@@ -133,7 +133,7 @@
 
             // submit form data to api
             $.ajax({
-                url: "api/login.php",
+                url: "login.php",
                 type : "POST",
                 contentType : 'application/json',
                 data : form_data,
@@ -188,7 +188,7 @@
 
 // submit form data to api
             $.ajax({
-                url: "api/update_user.php",
+                url: "update_user.php",
                 type : "POST",
                 contentType : 'application/json',
                 data : form_data,
@@ -203,11 +203,11 @@
 
                 // show error message to user
                 error: function(xhr, resp, text){
-                    if(xhr.responseJSON.message=="Unable to update user."){
+                    if(xhr.response.json.message=="Unable to update user."){
                         $('#response').html("<div class='alert alert-danger'>Unable to update account.</div>");
                     }
 
-                    else if(xhr.responseJSON.message=="Access denied."){
+                    else if(xhr.response.json.message=="Access denied."){
                         showLoginPage();
                         $('#response').html("<div class='alert alert-success'>Access denied. Please login</div>");
                     }
@@ -237,22 +237,17 @@
             setCookie("jwt", "", 1);
 
             // login page html
-            var html = `
-        <h2>Login</h2>
-        <form id='login_form'>
-            <div class='form-group'>
-                <label for='email'>Email address</label>
-                <input type='email' class='form-control' id='email' name='email' placeholder='Enter email'>
-            </div>
-
-            <div class='form-group'>
-                <label for='password'>Password</label>
-                <input type='password' class='form-control' id='password' name='password' placeholder='Password'>
-            </div>
-
-            <button type='submit' class='btn btn-primary'>Login</button>
-        </form>
-        `;
+            var html = " <h2>Login</h2> \
+        <form id='login_form'> \
+            <div class='form-group'> \
+                <label for='email'>Email address</label> \
+                <input type='email' class='form-control' id='email' name='email' placeholder='Enter email'> \
+             \
+                <label for='password'>Password</label> \
+                <input type='password' class='form-control' id='password' name='password' placeholder='Password'> \
+            </div> \
+            <button type='submit' class='btn btn-primary'>Login</button> \
+        </form>";
 
             $('#content').html(html);
             clearResponse();
@@ -279,7 +274,7 @@
 
             // validate jwt to verify access
             var jwt = getCookie('jwt');
-            $.post("api/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
+            $.post("validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
 
                 // if valid, show homepage
                 var html = `
