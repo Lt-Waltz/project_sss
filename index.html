@@ -15,7 +15,7 @@
 <!-- navbar -->
 <div class="navContainer">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a id="start"  class="navbar-brand" href="#">Navbar</a>
+        <a id="start"  class="navbar-brand" href="#">Searcher</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -132,7 +132,7 @@
 
                 // submit form data to api
                 $.ajax({
-                    url: "create_user.php",
+                    url: "rest-api-authentication/create_user.php",
                     type : "POST",
                     contentType : 'application/json',
                     data : form_data,
@@ -164,7 +164,7 @@
 
                 // submit form data to api
                 $.ajax({
-                    url: "login.php",
+                    url: "rest-api-authentication/login.php",
                     type : "POST",
                     contentType : 'application/json',
                     data : form_data,
@@ -219,7 +219,7 @@
 
 // submit form data to api
                 $.ajax({
-                    url: "update_user.php",
+                    url: "rest-api-authentication/update_user.php",
                     type : "POST",
                     contentType : 'application/json',
                     data : form_data,
@@ -305,7 +305,7 @@
 
                 // validate jwt to verify access
                 var jwt = getCookie('jwt');
-                $.post("validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
+                $.post("rest-api-authentication/validate_token.php", JSON.stringify({ jwt:jwt })).done(function(result) {
 
                     // if valid, show homepage
                     var html = `
