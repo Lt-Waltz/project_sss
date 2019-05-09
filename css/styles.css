@@ -91,6 +91,38 @@ body {
     width: 25%;
     font-size: 1.3em;
 }
+.searchResultContainer {
+    background-color: rgba(22, 33, 46, 1.0);
+    column-span: all;
+}
+.searchResultContainer img {
+    height: 100px;
+    width: auto;
+    float: left;
+}
+.nameContainer {
+    overflow: hidden;
+    margin-left: 10px;
+    width: 465px;
+    margin-right: 0px;
+    padding-right: 0px;
+    float: left;
+}
+.nameContainer p {
+    opacity: 0.5;
+}
+.priceContainer {
+    width: 265px;
+    margin-top: 30px;
+    float: right;
+}
+.discountPercentage {
+    float: left;
+}
+.discountPrice {
+    float: right;
+}
+
 
 @media only screen and ( max-width: 960px ) {
     .searchContainer {
