@@ -107,19 +107,34 @@ body {
     padding-right: 0px;
     float: left;
 }
+.nameContainer h2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .nameContainer p {
-    opacity: 0.5;
+    padding-top: 15px;
+    opacity: 0.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .priceContainer {
     width: 265px;
-    margin-top: 30px;
+    margin-top: 15px;
     float: right;
 }
 .discountPercentage {
     float: left;
+    background-color: rgba(76, 107, 34, 1);
+    padding: 3px;
+    font-size: 1.5em;
 }
 .discountPrice {
     float: right;
+    font-size: 1.5em;
+    padding-right: 15px;
+    opacity: 0.7;
 }
 
 
