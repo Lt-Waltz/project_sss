@@ -19,7 +19,7 @@ if (strcmp($currency, "EUR") == 0) {
 }
 
 $gameDetails_json = file_get_contents($steam_url);
-if ($gameDetails_json != null) {
+if ($gameDetails_json != "null") {
     $gameDetails_array = json_decode($gameDetails_json, true);
     if ($gameDetails_array[$appId]["success"] === true) {
         if ($gameDetails_array[$appId]["data"]["type"] === "dlc" || $gameDetails_array[$appId]["data"]["type"] === "game" || $gameDetails_array[$appId]["data"]["type"] === "demo") {
