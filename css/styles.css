@@ -10,6 +10,9 @@ body {
     background-image: repeating-linear-gradient(#1b2838, #25364c, #1b2838);
 
 }
+.starter-template {
+    padding: 3.5rem 1.5rem;
+}
 .navContainer {
     color: white;
 }
@@ -112,6 +115,7 @@ body {
 }
 .gamesContainer th:hover {
     color: cornflowerblue;
+    cursor: pointer;
 }
 
 .searchResultContainer {
