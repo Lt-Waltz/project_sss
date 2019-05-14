@@ -316,32 +316,199 @@ function addGameToList() {
             if (games.length !== 0) {
                 for (var i=0; i<games.length; i++) {
                     var game_name = games[i].querySelector("td > div.nameContainer > h2").textContent;
-                    if (document.getElementsByClassName("1")[0].id === "name") {
-                        if (games.length === 1) {
-                            if (game_info[1].localeCompare(game_name) === 1) {
-                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
-                            } else {
+                    var discount_percent = games[i].querySelector("td > div.priceContainer > p.discountPercentage"); // .textcontent myöhemmin
+                    var game_price = games[i].querySelector("td > div.priceContainer > p.discountPrice").textContent; // .replace(/[^0-9]/g, "") myöhemmin
+
+                    if (document.getElementsByClassName("sort").length !== 0) {
+                        if (document.getElementsByClassName("sort")[0].id === "name") { // LAJITTELE NIMEN MUKAAN
+                            if (game_info[1].localeCompare(game_name) === -1) {
                                 document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                break;
                             }
-                        } else {
-                            if (game_info[1].localeCompare(game_name) === 1) {
+                            if (i === games.length-1) {
+                                if (game_info[1].localeCompare(game_name) === 1) {
+                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                    break;
+                                }
+                            }
+                        } else if (document.getElementsByClassName("sort")[0].id === "price") { // LAJITTELE HINNAN MUKAA
+                            if (discount_percent == null) {
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_price === "Coming Soon") {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (parseInt(game_info[3]["final_formatted"].replace(/[^0-9]/g, "")) < game_price.replace(/[^0-9]/g, "")) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else if (game_info[3]["final_formatted"].replace(/[^0-9]/g, "") == game_price.replace(/[^0-9]/g, "")) {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === 1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (i === games.length-1) {
+                                            if (parseInt(game_info[3]["final_formatted"].replace(/[^0-9]/g, "")) > game_price.replace(/[^0-9]/g, "")) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else if (game_info[0] == "free" || game_info[0] == "free genreless") {
+                                    if (game_price === "Coming Soon") {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (game_price.replace(/[^0-9]/g, "") !== "") {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === 1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else if (game_info[0] == "coming") {
+                                    if (game_price === "Coming Soon") {
+                                        if (game_info[1].localeCompare(game_name) === -1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        if (i === games.length-1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else { // JOS ON DISCOUNT PERCENTAGE
+                                var game_discount_price = games[i].querySelector("td > div.priceContainer > p.discountPrice").childNodes[2].textContent;
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_price === "Coming Soon") {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (parseInt(game_info[3]["final_formatted"].replace(/[^0-9]/g, "")) < game_discount_price.replace(/[^0-9]/g, "")) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else if (game_info[3]["final_formatted"].replace(/[^0-9]/g, "") == game_discount_price.replace(/[^0-9]/g, "")) {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === 1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (i === games.length-1) {
+                                            if (parseInt(game_info[3]["final_formatted"].replace(/[^0-9]/g, "")) > game_discount_price.replace(/[^0-9]/g, "")) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else if (game_info[0] == "free" || game_info[0] == "free genreless") {
+                                    if (game_price === "Coming Soon") {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (game_discount_price.replace(/[^0-9]/g, "") !== "") {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === 1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else if (game_info[0] == "coming") {
+                                    if (game_price === "Coming Soon") {
+                                        if (game_info[1].localeCompare(game_name) === -1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        if (i === games.length-1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        } else if (document.getElementsByClassName("sort")[0].id === "discount_percent") { // LAJITTELE ALENNUSKSEN MUKAAN
+                            if (discount_percent === null) { // jos ei ole alennusta, lajitellaan nimen mukaan
+
+                            } else {
+
+                            }
+                        } else if (document.getElementsByClassName("sort")[0].id === "discount_amount") { // LAJITTELE ALENNUSHINNAN MUKAAN
+
+                        }
+                        // INVERTED
+                    } else {
+                        if (document.getElementsByClassName("invert")[0].id === "name") { // LAJITTELE NIMEN MUKAAN
+                            if (game_info[1].localeCompare(game_name) === -1) {
                                 document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
                             }
                             if (i === 0) {
-                                if (game_info[1].localeCompare(game_name) === -1) {
+                                if (game_info[1].localeCompare(game_name) === 1) {
                                     document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
                                 }
                             }
+                        } else if (document.getElementsByClassName("invert")[0].id === "price") { // LAJITTELE HINNAN MUKAA
+                            if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+
+                            } else if (game_info[0] == "free" || game_info[0] == "free genreless") {
+
+                            } else if (game_info[0] == "coming") {
+
+                            }
+                        } else if (document.getElementsByClassName("invert")[0].id === "discount_percent") { // LAJITTELE ALENNUSKSEN MUKAAN
+                            if (discount_percent == null) { // jos ei ole alennusta, lajitellaan nimen mukaan
+
+                            } else {
+
+                            }
+                        } else if (document.getElementsByClassName("invert")[0].id === "discount_amount") { // LAJITTELE ALENNUSHINNAN MUKAAN
+
                         }
-                    } else if (document.getElementsByClassName("1")[0].id === "price") {
-
-                    } else if (document.getElementsByClassName("1")[0].id === "discount_percent") {
-
-                    } else if (document.getElementsByClassName("1")[0].id === "discount_amount") {
-
                     }
-                    
-                }
+                } // For-loop loppuu.
             } else {
                 document.getElementsByClassName("gamesContainer")[0].appendChild(tr);
             }

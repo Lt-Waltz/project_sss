@@ -4,7 +4,7 @@ $currency = $_REQUEST["option"];
 $appId = $_REQUEST["appId"];
 
 $steam_url = 'https://store.steampowered.com/api/appdetails?appids=';
-if (strcmp($currency, "EUR") == 0) {
+if (strcmp($currency, "EUR") == 0) { // Varmaan menisi Switchillä kauniimmin
     $steam_url .= $appId . '&l=en&cc=fi';
 } else if (strcmp($currency, "USD") == 0) {
     $steam_url .= $appId . '&l=en&cc=us';
