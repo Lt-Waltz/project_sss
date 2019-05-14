@@ -472,9 +472,65 @@ function addGameToList() {
                             }
                         } else if (document.getElementsByClassName("sort")[0].id === "discount_percent") { // LAJITTELE ALENNUSKSEN MUKAAN
                             if (discount_percent === null) { // jos ei ole alennusta, lajitellaan nimen mukaan
-
-                            } else {
-
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_info[3]["discount_percent"] > 0) {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (game_info[1].localeCompare(game_name) === -1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if (game_info[1].localeCompare(game_name) === -1) {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    }
+                                    if (i === games.length-1) {
+                                        if (game_info[1].localeCompare(game_name) === 1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else { // jos on discount
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_info[3]["discount_percent"] > 0) {
+                                       if (game_info[3]["discount_percent"] > discount_percent.textContent.replace(/[^0-9]/g, "")) {
+                                           document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                           break;
+                                       } else if (game_info[3]["discount_percent"] == discount_percent.textContent.replace(/[^0-9]/g, "")) {
+                                           if (game_info[1].localeCompare(game_name) === -1) {
+                                               document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                               break;
+                                           }
+                                           if (i === games.length-1) {
+                                               if (game_info[1].localeCompare(game_name) === 1) {
+                                                   document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                   break;
+                                               }
+                                           }
+                                       }
+                                       if (i === games.length-1) {
+                                           if (game_info[3]["discount_percent"] < discount_percent.textContent.replace(/[^0-9]/g, "")) {
+                                               document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                               break;
+                                           }
+                                       }
+                                    }
+                                } else {
+                                    if (i === games.length-1) {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                        break;
+                                    }
+                                }
                             }
                         } else if (document.getElementsByClassName("sort")[0].id === "discount_amount") { // LAJITTELE ALENNUSHINNAN MUKAAN
 
