@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <script type="text/javascript" src="js/getGames.js"></script>
+    <script type="text/javascript" src="js/sort.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
 
 </head>
@@ -15,23 +16,22 @@
 <?php
             // Initialize the session
             session_start();
-            $username = $_SESSION["username"];
+            $username = strtoupper($_SESSION["username"]);
+            echo $username;
 ?>
 <!-- navbar -->
-<div class="navContainer">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-        <a id="start"  class="navbar-brand" href="#">Searcher</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="#" id="home"><?php echo strtoupper($username) ?></a>
-                <a class="nav-item nav-link" href="#" id='logout'>Logout</a>
-            </div>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="#" id='home'><?php echo ($username);?></a>
         </div>
-    </nav>
-    <!-- /navbar -->
+    </div>
+</nav>
+<!-- /navbar -->
 <!-- /container -->
 <div class="mainContainer">
     <img id="banner" src="images/Banner.png" alt="Banner">
@@ -53,10 +53,10 @@
     <div id="tableContainer">
         <table class="gamesContainer">
             <tr>
-                <th class="none" id="name">Name &#9660;</th> <!-- Sort kun valittu, none kun ei, invert kun toiseen suuntaan valittu. -->
-                <th class="sort" id="price">Price &#9660;</th>
-                <th class="none" id="discount_percent">Discount Percentage &#9660;</th>
-                <th class="none" id="discount_amount">Discount Amount &#9660;</th>
+                <th class="sort" id="name" onclick="sortByName()">Name &#9660;</th> <!-- Sort kun valittu, none kun ei, invert kun toiseen suuntaan valittu. -->
+                <th class="none" id="price" onclick="sortByPrice()">Price &#9660;</th>
+                <th class="none" id="discount_percent" onclick="sortByDiscount()">Discount Percentage &#9660;</th>
+                <th class="none" id="discount_amount" onclick="sortByDiscountAmount()">Discount Amount &#9660;</th>
             </tr>
             <!-- Javascript tekee tähän listan peleistä-->
         </table>
