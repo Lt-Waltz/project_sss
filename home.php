@@ -17,7 +17,7 @@
 session_start();
 $username = strtoupper($_SESSION["username"]);
 if (substr($username, -1) == "S") {
-    $whose = "S'";
+    $whose = "'";
 }
 else {
     $whose = "'S";
@@ -25,14 +25,22 @@ else {
 ?>
 
 <h1 id="homeheader"><?php echo $username . $whose?> HOME</h1>
-<button type="button" class="btn btn-primary" onclick="resetpw()">Reset Password</button>
-<button type="button" class="btn btn-danger" onclick="logout()">Logout</button>
+
+<div class="row">
+        <button type="button" class="btn btn-primary btn-block" onclick="resetpw()">Reset Password</button>
+        <button type="button" class="btn btn-success btn-block" onclick="back()">Back</button>
+        <button type="button" class="btn btn-danger btn-block" onclick="logout()">Logout</button>
+
+</div>
 <script>
     function logout() {
         window.open("logout.php");
     }
     function resetpw() {
         window.open("resetpassword.php");
+    }
+    function back() {
+        window.open("searcher.php");
     }
 
 </script>

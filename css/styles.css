@@ -24,10 +24,18 @@ body {
     max-width: 960px;
     min-height: 100%;
 }
+#whitetext {
+    color: white;
+}
 #homeheader {
     font-size: 100px;
     color: white;
     text-align: center;
+}
+#button {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
 }
 
 #banner {

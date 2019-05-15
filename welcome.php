@@ -14,12 +14,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; text-align: center; }
     </style>
 </head>
-<body>
+<body id="whitetext">
 <div class="page-header">
     <h1>Hi, you are logged in as <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></h1>
     <h1>Do you want to continue?</h1>
