@@ -533,47 +533,361 @@ function addGameToList() {
                                 }
                             }
                         } else if (document.getElementsByClassName("sort")[0].id === "discount_amount") { // LAJITTELE ALENNUSHINNAN MUKAAN
-
+                            if (discount_percent === null) {
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_info[3]["discount_percent"] > 0) {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (game_info[1].localeCompare(game_name) === -1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if (game_info[1].localeCompare(game_name) === -1) {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    }
+                                    if (i === games.length-1) {
+                                        if (game_info[1].localeCompare(game_name) === 1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else { // jos discount
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    var initial_price = games[i].querySelector("td > div.priceContainer > p.discountPrice").childNodes[0].textContent.replace(/[^0-9]/g, "");
+                                    var final_price = games[i].querySelector("td > div.priceContainer > p.discountPrice").childNodes[2].textContent.replace(/[^0-9]/g, "");
+                                    var new_games_discount_amount = game_info[3]["initial_formatted"].replace(/[^0-9]/g, "") - game_info[3]["final_formatted"].replace(/[^0-9]/g, "");
+                                    if (game_info[3]["discount_percent"] > 0) {
+                                        if ( new_games_discount_amount > (initial_price - final_price)) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else if ( new_games_discount_amount == (initial_price - final_price)) {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === 1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[3]["discount_percent"] < discount_percent.textContent.replace(/[^0-9]/g, "")) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if (i === games.length-1) {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                        break;
+                                    }
+                                }
+                            }
                         }
                         // INVERTED
                     } else {
                         if (document.getElementsByClassName("invert")[0].id === "name") { // LAJITTELE NIMEN MUKAAN
-                            if (game_info[1].localeCompare(game_name) === -1) {
-                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                            if (game_info[1].localeCompare(game_name) === 1) {
+                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                break;
                             }
-                            if (i === 0) {
-                                if (game_info[1].localeCompare(game_name) === 1) {
-                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                            if (i === games.length-1) {
+                                if (game_info[1].localeCompare(game_name) === -1) {
+                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                    break;
                                 }
                             }
                         } else if (document.getElementsByClassName("invert")[0].id === "price") { // LAJITTELE HINNAN MUKAA
-                            if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
-
-                            } else if (game_info[0] == "free" || game_info[0] == "free genreless") {
-
-                            } else if (game_info[0] == "coming") {
-
+                            if (discount_percent == null) {
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_price === "Coming Soon") {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (parseInt(game_info[3]["final_formatted"].replace(/[^0-9]/g, "")) > game_price.replace(/[^0-9]/g, "")) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else if (game_info[3]["final_formatted"].replace(/[^0-9]/g, "") == game_price.replace(/[^0-9]/g, "")) {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === -1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (i === games.length-1) {
+                                            if (parseInt(game_info[3]["final_formatted"].replace(/[^0-9]/g, "")) < game_price.replace(/[^0-9]/g, "")) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else if (game_info[0] == "free" || game_info[0] == "free genreless") {
+                                    if (game_price === "Coming Soon") {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (game_price.replace(/[^0-9]/g, "") !== "") {
+                                            if (i === games.length-1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        } else {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === -1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else if (game_info[0] == "coming") {
+                                    if (game_price === "Coming Soon") {
+                                        if (game_info[1].localeCompare(game_name) === 1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        if (i === games.length-1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else { // JOS ON DISCOUNT PERCENTAGE
+                                var game_discount_price = games[i].querySelector("td > div.priceContainer > p.discountPrice").childNodes[2].textContent;
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_price === "Coming Soon") {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (parseInt(game_info[3]["final_formatted"].replace(/[^0-9]/g, "")) > game_discount_price.replace(/[^0-9]/g, "")) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else if (game_info[3]["final_formatted"].replace(/[^0-9]/g, "") == game_discount_price.replace(/[^0-9]/g, "")) {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === -1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (i === games.length-1) {
+                                            if (parseInt(game_info[3]["final_formatted"].replace(/[^0-9]/g, "")) < game_discount_price.replace(/[^0-9]/g, "")) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else if (game_info[0] == "free" || game_info[0] == "free genreless") {
+                                    if (game_price === "Coming Soon") {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    } else {
+                                        if (game_discount_price.replace(/[^0-9]/g, "") !== "") {
+                                            if (i === games.length-1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        } else {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === -1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else if (game_info[0] == "coming") {
+                                    if (game_price === "Coming Soon") {
+                                        if (game_info[1].localeCompare(game_name) === 1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    } else {
+                                        if (i === games.length-1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    }
+                                }
                             }
                         } else if (document.getElementsByClassName("invert")[0].id === "discount_percent") { // LAJITTELE ALENNUSKSEN MUKAAN
-                            if (discount_percent == null) { // jos ei ole alennusta, lajitellaan nimen mukaan
-
-                            } else {
-
+                            if (discount_percent === null) { // jos ei ole alennusta, lajitellaan nimen mukaan
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_info[3]["discount_percent"] > 0) {
+                                        if (i === games.length-1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    } else {
+                                        if (game_info[1].localeCompare(game_name) === 1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if (game_info[1].localeCompare(game_name) === 1) {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    }
+                                    if (i === games.length-1) {
+                                        if (game_info[1].localeCompare(game_name) === -1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else { // jos on discount
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_info[3]["discount_percent"] > 0) {
+                                        if (game_info[3]["discount_percent"] < discount_percent.textContent.replace(/[^0-9]/g, "")) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else if (game_info[3]["discount_percent"] == discount_percent.textContent.replace(/[^0-9]/g, "")) {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === -1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[3]["discount_percent"] > discount_percent.textContent.replace(/[^0-9]/g, "")) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                }
                             }
                         } else if (document.getElementsByClassName("invert")[0].id === "discount_amount") { // LAJITTELE ALENNUSHINNAN MUKAAN
-
+                            if (discount_percent === null) {
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    if (game_info[3]["discount_percent"] > 0) {
+                                        if (i === games.length-1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    } else {
+                                        if (game_info[1].localeCompare(game_name) === 1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[1].localeCompare(game_name) === -1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    if (game_info[1].localeCompare(game_name) === 1) {
+                                        document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                        break;
+                                    }
+                                    if (i === games.length-1) {
+                                        if (game_info[1].localeCompare(game_name) === -1) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                            break;
+                                        }
+                                    }
+                                }
+                            } else { // jos discount
+                                if (game_info[0] == "priced" || game_info[0] == "priced genreless" || game_info[0] == "coming priced") {
+                                    var initial_price = games[i].querySelector("td > div.priceContainer > p.discountPrice").childNodes[0].textContent.replace(/[^0-9]/g, "");
+                                    var final_price = games[i].querySelector("td > div.priceContainer > p.discountPrice").childNodes[2].textContent.replace(/[^0-9]/g, "");
+                                    var new_games_discount_amount = game_info[3]["initial_formatted"].replace(/[^0-9]/g, "") - game_info[3]["final_formatted"].replace(/[^0-9]/g, "");
+                                    if (game_info[3]["discount_percent"] > 0) {
+                                        if ( new_games_discount_amount < (initial_price - final_price)) {
+                                            document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                            break;
+                                        } else if ( new_games_discount_amount == (initial_price - final_price)) {
+                                            if (game_info[1].localeCompare(game_name) === 1) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                                break;
+                                            }
+                                            if (i === games.length-1) {
+                                                if (game_info[1].localeCompare(game_name) === -1) {
+                                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        if (i === games.length-1) {
+                                            if (game_info[3]["discount_percent"] > discount_percent.textContent.replace(/[^0-9]/g, "")) {
+                                                document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i].nextElementSibling);
+                                                break;
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    document.getElementsByClassName("gamesContainer")[0].insertBefore(tr, games[i]);
+                                    break;
+                                }
+                            }
                         }
-                    }
+                    } // INVERTED loppu
                 } // For-loop loppuu.
             } else {
                 document.getElementsByClassName("gamesContainer")[0].appendChild(tr);
             }
-            //document.getElementsByClassName("searchResultContainer")[0].querySelector("td > div.nameContainer > h2").textContent;
-            // localeCompare
-            //document.getElementsByClassName("1")[0].id;
-            //document.getElementsByClassName("searchResultContainer")[i]; (.length)
-
-        } // Not a game tai hinnaton if-lauseen loppu
+        } // Not a game tai hinnaton, if-lauseen loppu
         if (idAmount > 0) {
             ajaxRequest(currency, theAppIds[currentId], true);
         } else {
