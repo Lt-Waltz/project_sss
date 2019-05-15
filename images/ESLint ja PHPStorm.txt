@@ -1,6 +1,0 @@
-ESLint - Javascript-kielen tyylitarkistin
-
-Jos ESLintin toimintaan saattaminen on vaikeaa, oheinen ohje (vaikka ohje mainitsee WebStormin,
-toimii myös PHPStormissa) saattaa auttaa:
-
-http://www.codeblocq.com/2016/03/Setup-ESLint-in-WebStorm/
