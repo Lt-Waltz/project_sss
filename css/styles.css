@@ -24,10 +24,18 @@ body {
     max-width: 960px;
     min-height: 100%;
 }
-#favheader {
+#whitetext {
+    color: white;
+}
+#homeheader {
     font-size: 100px;
     color: white;
     text-align: center;
+}
+#button {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
 }
 
 #banner {
@@ -35,8 +43,7 @@ body {
     margin-top: 55px;
     height: auto;
     object-fit: contain;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-radius: 5px;
 }
 
 .searchContainer {
@@ -116,6 +123,12 @@ body {
 .gamesContainer th:hover {
     color: cornflowerblue;
     cursor: pointer;
+}
+
+.gamesContainer th.sort, .gamesContainer th.invert {
+    background: rgba(100, 149, 237, 0.5);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .searchResultContainer {
